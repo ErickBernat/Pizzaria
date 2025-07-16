@@ -31,5 +31,11 @@ public class UsuarioService {
 		return usuarioRepository.findAll().stream().map(e -> UsuarioConverter.toDto(e)).toList();
 	}
 	
-
+	public void deletarUsuario(Long id) {
+		boolean usuarioExiste = usuarioRepository.existsById(id);
+		if(!usuarioExiste) throw new IdUsuarioNaoEncontradoException();
+		
+		usuarioRepository.deixaUsuarioInativo(id);
+	}
+	
 }
