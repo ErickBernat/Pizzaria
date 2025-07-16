@@ -1,6 +1,8 @@
 package br.com.trainees.pizzaria.domain.entity;
 
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,6 +36,16 @@ public class Usuario {
 	
 	public Usuario() {}
 	
+	public Usuario(UsuarioDTO usuarioDto) {
+		setCpf(usuarioDto.cpf());
+		setNome(usuarioDto.nome());
+		setTelefone(usuarioDto.telefone());
+		setEmail(usuarioDto.email());
+		setSenha(usuarioDto.senha());
+		setEndereco(usuarioDto.endereco());
+		setStatus(usuarioDto.status());
+	}
+	
 	public Usuario(UsuarioCadastroDTO usuarioCadastroDto) {
 		setCpf(usuarioCadastroDto.cpf());
 		setNome(usuarioCadastroDto.nome());
@@ -52,7 +64,7 @@ public class Usuario {
 		setEndereco(endereco);
 		setStatus(status);
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

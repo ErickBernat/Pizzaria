@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.com.trainees.pizzaria.domain.dto.RespostaErroDTO;
 import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
+import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
 
 @RestControllerAdvice
 public class GlobalHandlerExceptionConfig {
@@ -26,7 +27,7 @@ public class GlobalHandlerExceptionConfig {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_INTERNO_SERVIDOR");
 		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@ExceptionHandler(EnderecoNaoEncontradoException.class)
 	public ResponseEntity<Object> manipular_EnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ENDERECO_NAO_ENCONTRADO");
@@ -37,6 +38,12 @@ public class GlobalHandlerExceptionConfig {
 	public ResponseEntity<Object> manipular_UsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "USUARIO_JA_EXISTENTE");
 		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
+	public ResponseEntity<Object> manipular_Exception_Usuario_id(Exception ex) {
+		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
+		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	private String verificarMensagemDaException(String mensagem, String mensagemPadrao) {

@@ -15,6 +15,7 @@ import br.com.trainees.pizzaria.domain.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
+
 	@Query("SELECT u FROM Usuario u LEFT JOIN u.endereco e WHERE u.id = :id")
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
 
@@ -42,9 +43,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     	    "WHERE e.bairro = :bairro")
     List<Usuario> buscaUsuarioPorBairro(@Param("bairro") String bairro);
     
+
     @Modifying
     @Transactional
-    @Query("UPDATE Usuario u SET u.status = false " 
+    @Query("UPDATE Usuario u SET u.ativo = false " 
             + "WHERE u.id = :id")
     void deixaUsuarioInativo(@Param("id") Long id);	
 }
