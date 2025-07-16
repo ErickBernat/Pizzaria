@@ -1,8 +1,9 @@
 package br.com.trainees.pizzaria.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +18,21 @@ import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
+import br.com.trainees.pizzaria.service.UsuarioService;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	
-	 @Autowired
-	    private UsuarioService usuarioService;
+  @Autowired
+	private UsuarioService usuarioService;
+	
+	@GetMapping("/{cpf}")
+	public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf) {
+		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
+
+	 
   
 	 
 	 @GetMapping("/{id}")
