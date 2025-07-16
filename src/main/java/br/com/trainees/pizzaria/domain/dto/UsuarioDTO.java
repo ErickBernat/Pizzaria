@@ -13,6 +13,8 @@ public record UsuarioDTO(
 		@NotBlank String telefone,
 		@NotBlank @Email String email,
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) @NotBlank String senha,
-		@NotNull Long enderecoId) {
-	
+		@NotNull Long enderecoId,
+		@NotBlank boolean ativo)
+		
+{
 }

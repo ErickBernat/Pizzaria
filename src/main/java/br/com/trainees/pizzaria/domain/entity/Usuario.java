@@ -1,5 +1,6 @@
 package br.com.trainees.pizzaria.domain.entity;
 
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +24,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private String senha;
+	private boolean ativo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_id_endereco")
@@ -32,9 +34,17 @@ public class Usuario {
 		
 	}
 	
+	public Usuario(UsuarioDTO dto, Endereco endereco) {
+		this.id = dto.id();
+		this.cpf = dto.cpf();
+		this.nome = dto.nome();
+		this.telefone = dto.telefone();
+		this.email = dto.email();
+		this.senha = dto.senha();
+		this.ativo = dto.ativo();
+	}
 	
-
-	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco) {
+	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco, Boolean status) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
@@ -42,6 +52,7 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.endereco = endereco;
+		this.ativo = status;
 	}
 
 	public Long getId() {
@@ -90,6 +101,14 @@ public class Usuario {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean status) {
+		this.ativo = status;
 	}
 	
 	
