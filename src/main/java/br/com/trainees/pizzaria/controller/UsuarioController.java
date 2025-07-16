@@ -25,7 +25,7 @@ public class UsuarioController {
   @Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/{cpf}")
+	@GetMapping("/cpf/{cpf}")
 	public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf) {
 		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
 	}
