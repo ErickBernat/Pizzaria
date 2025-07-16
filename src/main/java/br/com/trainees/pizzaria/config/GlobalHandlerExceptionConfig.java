@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.trainees.pizzaria.domain.dto.RespostaErroDTO;
+import br.com.trainees.pizzaria.domain.exception.CpfUsuarioNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
 import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
@@ -29,21 +30,27 @@ public class GlobalHandlerExceptionConfig {
 	}
 
 	@ExceptionHandler(EnderecoNaoEncontradoException.class)
-	public ResponseEntity<Object> manipular_EnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
+	public ResponseEntity<Object> manipularEnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ENDERECO_NAO_ENCONTRADO");
 		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(UsuarioJaExistenteException.class)
-	public ResponseEntity<Object> manipular_UsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
+	public ResponseEntity<Object> manipularUsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "USUARIO_JA_EXISTENTE");
 		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
-	public ResponseEntity<Object> manipularExceptionUsuarioId(Exception ex) {
+	public ResponseEntity<Object> manipularExceptionUsuarioId(IdUsuarioNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
-		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
+		return pegarRespostaErro(mensagem, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(CpfUsuarioNaoEncontradoException.class)
+	public ResponseEntity<Object> manipularExceptionUsuarioCpf(CpfUsuarioNaoEncontradoException ex) {
+		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_CPF_USUARIO");
+		return pegarRespostaErro(mensagem, HttpStatus.NOT_FOUND);
 	}
 	
 	private String verificarMensagemDaException(String mensagem, String mensagemPadrao) {

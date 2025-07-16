@@ -12,11 +12,21 @@ import br.com.trainees.pizzaria.domain.exception.UsuarioDuplicadoException;
 import br.com.trainees.pizzaria.repository.UsuarioRepository;
 import br.com.trainees.pizzaria.domain.dto.UsuarioAtualizaDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Endereco;
+
+import br.com.trainees.pizzaria.domain.entity.Usuario;
+import br.com.trainees.pizzaria.domain.exception.CpfUsuarioNaoEncontradoException;
+
+import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
+import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
+import br.com.trainees.pizzaria.repository.UsuarioRepository;
+
 import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
 import br.com.trainees.pizzaria.repository.EnderecoRepository;
 import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
+
 
 @Service
 public class UsuarioService {
@@ -35,13 +45,20 @@ public class UsuarioService {
 		return UsuarioConverter.toDto(usuario.get());
 	}
 	
+	public UsuarioDTO buscarUsuarioPorCpf(String cpf) {
+		Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorCpf(cpf);
+		if(usuario.isEmpty()) throw new CpfUsuarioNaoEncontradoException();
+		
+		return UsuarioConverter.toDto(usuario.get());
+	}
+	
 	public List<UsuarioDTO> buscaTodosUsuarios(){
-		return usuarioRepository.findAll().stream().map(e -> UsuarioConverter.toDto(e)).toList();
+		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
 	
 	public UsuarioDTO atualizarUsuario(Long id, UsuarioAtualizaDTO usuarioAtualizaDTO) {
 	    Usuario usuarioUpdate = usuarioRepository.buscaUsuarioPorId(id)
-	        .orElseThrow(() -> new IdUsuarioNaoEncontradoException());
+	        .orElseThrow(IdUsuarioNaoEncontradoException::new);
 
 	    UsuarioConverter.updateUsuario(usuarioUpdate, usuarioAtualizaDTO);
 
@@ -80,7 +97,14 @@ public class UsuarioService {
 	    }
 	    return UsuarioConverter.toDto(usuario.get());
 	}
-  
+	
+	public List<UsuarioDTO> buscaUsuarioPorBairro(String bairro) {
+		List<Usuario> usuario = usuarioRepository.buscaUsuarioPorBairro(bairro);
+		return usuario.stream()
+                .map(UsuarioConverter::toDto)
+                .toList();
+	}
+	
 	public void deletarUsuario(Long id) {
 		boolean usuarioExiste = usuarioRepository.existsById(id);
 		if(!usuarioExiste) throw new IdUsuarioNaoEncontradoException();

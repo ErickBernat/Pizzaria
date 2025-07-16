@@ -42,7 +42,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     void mudaSenhaUsuario(@Param("novaSenha") String senha, @Param("id") Long id);
 
     @Query("SELECT u FROM Usuario u " +
-    	    "JOIN u.endereco e " +
+    	    "JOIN FETCH u.endereco e " +
     	    "WHERE e.bairro = :bairro")
     List<Usuario> buscaUsuarioPorBairro(@Param("bairro") String bairro);
     
