@@ -14,7 +14,7 @@ public class UsuarioConverter {
 			entity.getEmail(),
 			entity.getSenha(),
 			entity.getStatus(),
-			entity.getEndereco()
+			EnderecoConverter.toDTO(entity.getEndereco())
 		);
 	}
 

@@ -42,7 +42,7 @@ public class Usuario {
 		setTelefone(usuarioDto.telefone());
 		setEmail(usuarioDto.email());
 		setSenha(usuarioDto.senha());
-		setEndereco(usuarioDto.endereco());
+		setEndereco(new Endereco(usuarioDto.endereco()));
 		setStatus(usuarioDto.status());
 	}
 	

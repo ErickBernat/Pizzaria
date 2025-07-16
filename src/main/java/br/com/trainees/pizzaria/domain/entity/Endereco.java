@@ -1,5 +1,6 @@
 package br.com.trainees.pizzaria.domain.entity;
 
+import br.com.trainees.pizzaria.domain.dto.EnderecoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,14 @@ public class Endereco {
 		this.cep = cep;
 		this.bairro = bairro;
 		this.complemento = complemento;
+	}
+	
+	public Endereco(EnderecoDTO enderecoDto) {
+		setLogradouro(enderecoDto.logradouro());
+		setCep(enderecoDto.cep());
+		setBairro(enderecoDto.bairo());
+		setComplemento(enderecoDto.complemento());
+		
 	}
 
 	public Endereco() {
