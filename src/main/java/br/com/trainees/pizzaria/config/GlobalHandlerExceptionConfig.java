@@ -42,7 +42,7 @@ public class GlobalHandlerExceptionConfig {
 	}
 
 	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
-	public ResponseEntity<Object> manipularExceptionUsuarioId(Exception ex) {
+	public ResponseEntity<Object> manipularExceptionUsuarioId(IdUsuarioNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
 		return pegarRespostaErro(mensagem, HttpStatus.NOT_FOUND);
 	}

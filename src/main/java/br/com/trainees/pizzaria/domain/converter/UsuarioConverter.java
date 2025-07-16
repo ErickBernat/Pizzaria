@@ -1,5 +1,6 @@
 package br.com.trainees.pizzaria.domain.converter;
 
+import br.com.trainees.pizzaria.domain.dto.UsuarioAtualizaDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Usuario;
 
@@ -18,7 +19,7 @@ public class UsuarioConverter {
 		);
 	}
 
-	public static void updateUsuario(Usuario usuario, UsuarioDTO dto) {
+	public static void updateUsuario(Usuario usuario, UsuarioAtualizaDTO dto) {
 	    usuario.setNome(dto.nome());
 	    usuario.setTelefone(dto.telefone());
 	    usuario.setEmail(dto.email());
