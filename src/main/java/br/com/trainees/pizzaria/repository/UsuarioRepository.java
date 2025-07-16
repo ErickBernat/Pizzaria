@@ -22,7 +22,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
 
 	
-//	@EntityGraph(attributePaths = {"endereco"})
+	@EntityGraph(attributePaths = {"endereco"})
 	List<Usuario> findAll();
 
 
