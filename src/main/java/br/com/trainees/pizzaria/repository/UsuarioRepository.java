@@ -15,7 +15,9 @@ import br.com.trainees.pizzaria.domain.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
-	@Query("SELECT u FROM Usuario u LEFT JOIN u.endereco e WHERE u.id = :id")
+	@Query("SELECT u FROM Usuario u "
+			+ "LEFT JOIN u.endereco e "
+			+ "WHERE u.id = :id")
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
 
 	
@@ -39,16 +41,26 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             "WHERE u.id = :id")
     void mudaSenhaUsuario(@Param("novaSenha") String senha, @Param("id") Long id);
 
-
     @Query("SELECT u FROM Usuario u " +
     	    "JOIN u.endereco e " +
     	    "WHERE e.bairro = :bairro")
     List<Usuario> buscaUsuarioPorBairro(@Param("bairro") String bairro);
     
-
     @Modifying
     @Transactional
     @Query("UPDATE Usuario u SET u.status = false " 
             + "WHERE u.id = :id")
-    void deixaUsuarioInativo(@Param("id") Long id);	
+    void deixaUsuarioInativo(@Param("id") Long id);
+    
+    @Query("SELECT CASE WHEN COUNT(u.id) > 0 THEN true ELSE false END " 
+            + "FROM Usuario u " 
+            + "WHERE u.id != :id " 
+            + "AND u.email = :email")
+    boolean existeOutroUsuarioComMesmoEmail(@Param("id") Long id, @Param("email") String email);
+
+    @Query("SELECT CASE WHEN COUNT(u.id) > 0 THEN true ELSE false END " //
+            + "FROM Usuario u " 
+            + "WHERE u.id != :id " 
+            + "AND u.cpf = :cpf")
+    boolean existeOutroUsuarioComMesmoCpf(@Param("id") Long id, @Param("cpf") String email);
 }
