@@ -22,6 +22,7 @@ import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -33,6 +34,7 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf) {
 		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
 	}
+
   
 	@GetMapping("/id/{id}")
 	public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
@@ -54,7 +56,7 @@ public class UsuarioController {
 		
 		return ResponseEntity.created(locationUri).body(usuarioDto);
 	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<UsuarioDTO> atualizaUsuario(@PathVariable Long id , @RequestBody UsuarioAtualizaDTO usuarioAtualizaDTO){
@@ -67,4 +69,10 @@ public class UsuarioController {
 		return ResponseEntity.noContent().build();
 
 	}
+	
+	@GetMapping("/todosUsuarios")
+    public ResponseEntity<List<UsuarioDTO>> buscarTodosOsUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioService.buscaTodosUsuarios();
+        return ResponseEntity.ok(usuarios);
+    }
 }
