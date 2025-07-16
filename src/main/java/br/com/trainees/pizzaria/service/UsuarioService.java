@@ -28,13 +28,13 @@ public class UsuarioService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-	public void cadastrarUsuario(UsuarioCadastroDTO usuarioCadastroDto) {
+	public UsuarioDTO cadastrarUsuario(UsuarioCadastroDTO usuarioCadastroDto) {
 		Endereco enderecoEntity = pegarEnderecoPeloId(usuarioCadastroDto.enderecoId());
 		checarCpfJaFoiCadastrado(usuarioCadastroDto.cpf());
 		Usuario usuarioEntity = new Usuario(usuarioCadastroDto);
 		usuarioEntity.setEndereco(enderecoEntity);
 		
-		usuarioRepository.save(usuarioEntity);
+		return UsuarioConverter.toDto(usuarioRepository.save(usuarioEntity));
 	}
 	
 	public UsuarioDTO buscaUsuarioId(Long id){
