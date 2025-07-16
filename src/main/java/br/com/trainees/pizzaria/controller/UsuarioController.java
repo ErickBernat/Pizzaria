@@ -30,7 +30,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
 	}
   
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
 	    UsuarioDTO usuario = usuarioService.buscaUsuarioId(id);
 	    return ResponseEntity.ok(usuario);
