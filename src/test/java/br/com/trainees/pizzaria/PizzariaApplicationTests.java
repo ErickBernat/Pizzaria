@@ -8,6 +8,7 @@ class PizzariaApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// intentionally empty method 
 	}
 
 }

@@ -23,7 +23,7 @@ public class GlobalHandlerExceptionConfig {
 	private MessageSource messageSource;
 	
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> manipular_Exception(Exception ex) {
+	public ResponseEntity<Object> manipularException(Exception ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_INTERNO_SERVIDOR");
 		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -41,7 +41,7 @@ public class GlobalHandlerExceptionConfig {
 	}
 
 	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
-	public ResponseEntity<Object> manipular_Exception_Usuario_id(Exception ex) {
+	public ResponseEntity<Object> manipularExceptionUsuarioId(Exception ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
 		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -57,6 +57,6 @@ public class GlobalHandlerExceptionConfig {
 	
 	private ResponseEntity<Object> pegarRespostaErro(String mensagem, HttpStatus httpStatus) {
 		RespostaErroDTO corpoDaResposta = new RespostaErroDTO(mensagem, httpStatus);
-		return new ResponseEntity<Object>(corpoDaResposta, httpStatus); 
+		return new ResponseEntity<>(corpoDaResposta, httpStatus); 
 	}
 }
