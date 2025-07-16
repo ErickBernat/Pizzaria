@@ -4,6 +4,8 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +31,11 @@ public class UsuarioController {
 		URI locationUri = URI.create(location);
 		
 		return ResponseEntity.created(locationUri).body(usuarioDto);
+	}
+	
+	@PatchMapping("/{id}/inativar")
+	public ResponseEntity<?> inativarUsuario(@PathVariable("id") Long usuarioId) {
+		usuarioService.deletarUsuario(usuarioId);
+		return ResponseEntity.noContent().build();
 	}
 }
