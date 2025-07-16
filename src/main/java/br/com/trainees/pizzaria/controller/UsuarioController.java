@@ -30,11 +30,17 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
 	}
   
-    @GetMapping("/bairro/{bairro}")
-    public ResponseEntity<List<UsuarioDTO>> buscarPorBairro(@PathVariable String bairro) {
-        List<UsuarioDTO> usuarios = usuarioService.buscaUsuarioPorBairro(bairro);
-        return ResponseEntity.ok(usuarios);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
+	    UsuarioDTO usuario = usuarioService.buscaUsuarioId(id);
+	    return ResponseEntity.ok(usuario);
+	}
+
+	@GetMapping("/bairro/{bairro}")
+	public ResponseEntity<List<UsuarioDTO>> buscarPorBairro(@PathVariable String bairro) {
+	    List<UsuarioDTO> usuarios = usuarioService.buscaUsuarioPorBairro(bairro);
+	    return ResponseEntity.ok(usuarios);
+	}
   
 	@PostMapping
 	public ResponseEntity<UsuarioDTO> cadastrarUsuario(@RequestBody UsuarioCadastroDTO usuarioCadastroDto, HttpServletRequest httpServletRequest) {
