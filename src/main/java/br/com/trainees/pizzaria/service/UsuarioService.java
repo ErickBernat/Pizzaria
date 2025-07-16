@@ -31,7 +31,6 @@ public class UsuarioService {
 	public List<UsuarioDTO> buscaTodosUsuarios(){
 		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
-	
 	public UsuarioDTO buscaUsuarioPorEmail(String email) {
 	    Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorEmail(email);
 	    if (usuario.isEmpty()) {
@@ -39,5 +38,11 @@ public class UsuarioService {
 	    }
 	    return UsuarioConverter.toDto(usuario.get());
 	}
-
+  
+	public void deletarUsuario(Long id) {
+		boolean usuarioExiste = usuarioRepository.existsById(id);
+		if(!usuarioExiste) throw new IdUsuarioNaoEncontradoException();
+		
+		usuarioRepository.deixaUsuarioInativo(id);
+	}
 }
