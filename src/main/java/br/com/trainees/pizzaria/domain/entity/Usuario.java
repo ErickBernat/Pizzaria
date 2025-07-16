@@ -1,10 +1,8 @@
 package br.com.trainees.pizzaria.domain.entity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
-
+import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +18,7 @@ import jakarta.persistence.Table;
 public class Usuario {
 	
 	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="pk_id_usuario")
 	private Long id;
 	private String cpf;
@@ -28,37 +26,45 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private String senha;
-	private boolean ativo;
+	
+	@Column(name = "ativo")
+	private boolean status;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_id_endereco")
 	Endereco endereco;
 	
-	public Usuario() {
-		
+	public Usuario() {}
+	
+	public Usuario(UsuarioDTO usuarioDto) {
+		setCpf(usuarioDto.cpf());
+		setNome(usuarioDto.nome());
+		setTelefone(usuarioDto.telefone());
+		setEmail(usuarioDto.email());
+		setSenha(usuarioDto.senha());
+		setEndereco(usuarioDto.endereco());
+		setStatus(usuarioDto.status());
 	}
 	
-	public Usuario(UsuarioDTO dto, Endereco endereco) {
-		this.id = dto.id();
-		this.cpf = dto.cpf();
-		this.nome = dto.nome();
-		this.telefone = dto.telefone();
-		this.email = dto.email();
-		this.senha = dto.senha();
-		this.ativo = dto.ativo();
-	}
-	
-	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco, Boolean status) {
-		super();
-		this.cpf = cpf;
-		this.nome = nome;
-		this.telefone = telefone;
-		this.email = email;
-		this.senha = senha;
-		this.endereco = endereco;
-		this.ativo = status;
+	public Usuario(UsuarioCadastroDTO usuarioCadastroDto) {
+		setCpf(usuarioCadastroDto.cpf());
+		setNome(usuarioCadastroDto.nome());
+		setTelefone(usuarioCadastroDto.telefone());
+		setEmail(usuarioCadastroDto.email());
+		setSenha(usuarioCadastroDto.senha());
+		setStatus(true);
 	}
 
+	public Usuario(String cpf, String nome, String telefone, String email, String senha, boolean status, Endereco endereco) {
+		setCpf(cpf);
+		setNome(nome);
+		setTelefone(telefone);
+		setEmail(email);
+		setSenha(senha);
+		setEndereco(endereco);
+		setStatus(status);
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,50 +81,51 @@ public class Usuario {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getTelefone() {
 		return telefone;
+	}
+	
+	public Boolean getStatus() {
+		return status;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 	
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean status) {
-		this.ativo = status;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	
-	
-	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 }

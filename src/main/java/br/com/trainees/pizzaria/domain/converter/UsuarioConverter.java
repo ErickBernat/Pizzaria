@@ -7,15 +7,15 @@ public class UsuarioConverter {
 
 	public static UsuarioDTO toDto(Usuario entity) {
 		return new UsuarioDTO(
-				entity.getId(),
-				entity.getCpf(),
-				entity.getNome(),
-				entity.getTelefone(),
-				entity.getEmail(),
-				null,
-				entity.getEndereco() != null ? entity.getEndereco().getId() : null,
-				entity.getAtivo()
-				);
+			entity.getId(),
+			entity.getCpf(),
+			entity.getNome(),
+			entity.getTelefone(),
+			entity.getEmail(),
+			entity.getSenha(),
+			entity.getStatus(),
+			entity.getEndereco()
+		);
 	}
 
 	public static void updateUsuario(Usuario usuario, UsuarioDTO dto) {
@@ -23,8 +23,6 @@ public class UsuarioConverter {
 	    usuario.setTelefone(dto.telefone());
 	    usuario.setEmail(dto.email());
 	    usuario.setSenha(dto.senha());
-	    usuario.setAtivo(dto.ativo());
-	    // Atualize o endereço se necessário
 	}
 
 	

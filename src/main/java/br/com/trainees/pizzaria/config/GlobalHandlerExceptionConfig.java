@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.trainees.pizzaria.domain.dto.RespostaErroDTO;
+import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
+import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
 import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
 
 @RestControllerAdvice
@@ -21,8 +23,26 @@ public class GlobalHandlerExceptionConfig {
 	private MessageSource messageSource;
 	
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> manipular_Exception(Exception ex) {
+	public ResponseEntity<Object> manipularException(Exception ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_INTERNO_SERVIDOR");
+		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(EnderecoNaoEncontradoException.class)
+	public ResponseEntity<Object> manipular_EnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
+		String mensagem = verificarMensagemDaException(ex.getMessage(), "ENDERECO_NAO_ENCONTRADO");
+		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UsuarioJaExistenteException.class)
+	public ResponseEntity<Object> manipular_UsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
+		String mensagem = verificarMensagemDaException(ex.getMessage(), "USUARIO_JA_EXISTENTE");
+		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
+	public ResponseEntity<Object> manipularExceptionUsuarioId(Exception ex) {
+		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
 		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
@@ -43,6 +63,6 @@ public class GlobalHandlerExceptionConfig {
 	
 	private ResponseEntity<Object> pegarRespostaErro(String mensagem, HttpStatus httpStatus) {
 		RespostaErroDTO corpoDaResposta = new RespostaErroDTO(mensagem, httpStatus);
-		return new ResponseEntity<Object>(corpoDaResposta, httpStatus); 
+		return new ResponseEntity<>(corpoDaResposta, httpStatus); 
 	}
 }

@@ -1,17 +1,16 @@
 package br.com.trainees.pizzaria.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-
-import br.com.trainees.pizzaria.domain.entity.Usuario;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.com.trainees.pizzaria.domain.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -26,6 +25,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 		     "LEFT JOIN FETCH u.endereco " +
 		     "WHERE u.cpf = :cpf")
 	Optional<Usuario> buscaUsuarioPorCpf(@Param("cpf") String cpf);
+	
+	@Query("SELECT u FROM Usuario u LEFT JOIN FETCH u.endereco WHERE u.email = :email")
+	Optional<Usuario> buscaUsuarioPorEmail(@Param("email") String email);
 	
     @Modifying
     @Transactional
@@ -46,11 +48,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
     @Modifying
     @Transactional
-    @Query("UPDATE Usuario u SET u.ativo = false " 
+    @Query("UPDATE Usuario u SET u.status = false " 
             + "WHERE u.id = :id")
     void deixaUsuarioInativo(@Param("id") Long id);
     
-    @Query("SELECT CASE WHEN COUNT(u.id) > 0 THEN true ELSE false END " //
+    @Query("SELECT CASE WHEN COUNT(u.id) > 0 THEN true ELSE false END " 
             + "FROM Usuario u " 
             + "WHERE u.id != :id " 
             + "AND u.email = :email")
