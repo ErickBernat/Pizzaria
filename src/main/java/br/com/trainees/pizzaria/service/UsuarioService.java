@@ -45,6 +45,13 @@ public class UsuarioService {
 		return  UsuarioConverter.toDto(usuario.get());
 	}
 	
+	public UsuarioDTO buscarUsuarioPorCpf(String cpf) {
+		Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorCpf(cpf);
+		if(usuario.isEmpty()) throw new IdUsuarioNaoEncontradoException();
+		
+		return UsuarioConverter.toDto(usuario.get());
+	}
+	
 	public List<UsuarioDTO> buscaTodosUsuarios(){
 		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
