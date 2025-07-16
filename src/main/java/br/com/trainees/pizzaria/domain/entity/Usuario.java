@@ -1,5 +1,9 @@
 package br.com.trainees.pizzaria.domain.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,6 +61,10 @@ public class Usuario {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCpf() {

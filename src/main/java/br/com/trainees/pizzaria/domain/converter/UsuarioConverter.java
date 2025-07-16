@@ -17,4 +17,15 @@ public class UsuarioConverter {
 				entity.getAtivo()
 				);
 	}
+
+	public static void updateUsuario(Usuario usuario, UsuarioDTO dto) {
+	    usuario.setNome(dto.nome());
+	    usuario.setTelefone(dto.telefone());
+	    usuario.setEmail(dto.email());
+	    usuario.setSenha(dto.senha());
+	    usuario.setAtivo(dto.ativo());
+	    // Atualize o endereço se necessário
+	}
+
+	
 }
