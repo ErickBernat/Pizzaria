@@ -15,7 +15,7 @@ public class Usuario {
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_usuario")
+	@Column(name="pk_id_usuario")
 	private Long id;
 	private String cpf;
 	private String nome;
@@ -24,6 +24,7 @@ public class Usuario {
 	private String senha;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name="fk_id_endereco")
 	Endereco endereco;
 	
 	public Usuario() {

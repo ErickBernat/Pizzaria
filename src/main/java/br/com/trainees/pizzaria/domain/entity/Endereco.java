@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Endereco {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_endereco")
+	@Column(name="pk_id_endereco")
 	Long id;
 	String logradouro;
 	String cep;
