@@ -13,7 +13,8 @@ public class UsuarioConverter {
 				entity.getTelefone(),
 				entity.getEmail(),
 				null,
-				entity.getEndereco() != null ? entity.getEndereco().getId() : null
+				entity.getEndereco() != null ? entity.getEndereco().getId() : null,
+				entity.getAtivo()
 				);
 	}
 }

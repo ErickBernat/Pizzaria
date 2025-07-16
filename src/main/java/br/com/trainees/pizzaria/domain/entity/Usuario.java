@@ -1,5 +1,6 @@
 package br.com.trainees.pizzaria.domain.entity;
 
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,7 +33,17 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-
+	
+	public Usuario(UsuarioDTO dto, Endereco endereco) {
+		this.id = dto.id();
+		this.cpf = dto.cpf();
+		this.nome = dto.nome();
+		this.telefone = dto.telefone();
+		this.email = dto.email();
+		this.senha = dto.senha();
+		this.ativo = dto.ativo();
+	}
+	
 	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco, Boolean status) {
 		super();
 		this.cpf = cpf;
@@ -92,11 +103,11 @@ public class Usuario {
 		this.endereco = endereco;
 	}
 	
-	public Boolean getStatus() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void getStatus(Boolean status) {
+	public void setAtivo(Boolean status) {
 		this.ativo = status;
 	}
 	
