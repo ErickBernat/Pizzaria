@@ -16,7 +16,7 @@ import br.com.trainees.pizzaria.domain.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Query("SELECT u FROM Usuario u "
-			+ "LEFT JOIN u.endereco e "
+			+ "LEFT JOIN FETCH u.endereco e "
 			+ "WHERE u.id = :id")
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
 
