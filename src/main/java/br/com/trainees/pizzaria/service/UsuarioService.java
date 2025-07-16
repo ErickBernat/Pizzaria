@@ -10,6 +10,7 @@ import br.com.trainees.pizzaria.domain.entity.Usuario;
 import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioDuplicadoException;
 import br.com.trainees.pizzaria.repository.UsuarioRepository;
+import br.com.trainees.pizzaria.domain.dto.UsuarioAtualizaDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Endereco;
@@ -55,11 +56,11 @@ public class UsuarioService {
 		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
 	
-	public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO usuarioDto) {
+	public UsuarioDTO atualizarUsuario(Long id, UsuarioAtualizaDTO usuarioAtualizaDTO) {
 	    Usuario usuarioUpdate = usuarioRepository.buscaUsuarioPorId(id)
 	        .orElseThrow(IdUsuarioNaoEncontradoException::new);
 
-	    UsuarioConverter.updateUsuario(usuarioUpdate, usuarioDto);
+	    UsuarioConverter.updateUsuario(usuarioUpdate, usuarioAtualizaDTO);
 
 	    validarUpdate(usuarioUpdate, id);
 
