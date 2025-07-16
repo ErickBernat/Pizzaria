@@ -14,5 +14,5 @@ public record UsuarioDTO(
 		@NotBlank @Email String email,
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) @NotBlank String senha,
 		@NotBlank boolean status,
-		Endereco endereco
+		EnderecoDTO endereco
 ) {}
