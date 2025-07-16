@@ -31,6 +31,8 @@ public class Usuario {
 	public Usuario() {
 		
 	}
+	
+	
 
 	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco) {
 		super();

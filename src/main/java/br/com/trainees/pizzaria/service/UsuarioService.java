@@ -16,7 +16,20 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	public List<UsuarioDTO> buscaTodosUsuarios(){
-		return usuarioRepository.findAll().stream().map(()-> new Usuario(this)).toList();
+		return usuarioRepository.findAll().stream().map(this::converteUsuarioDTO).toList();
+	}
+	
+	
+	private UsuarioDTO converteUsuarioDTO(Usuario usuario) {
+	    return new UsuarioDTO(
+	    	usuario.getId(),
+	        usuario.getCpf(),
+	        usuario.getNome(),
+	        usuario.getTelefone(),
+	        usuario.getEmail(),
+	        usuario.getSenha(),
+	        usuario.getEndereco().getId()
+	    );
 	}
 	
 

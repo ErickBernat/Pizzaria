@@ -2,6 +2,7 @@ package br.com.trainees.pizzaria.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.trainees.pizzaria.domain.entity.Usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,4 +15,5 @@ public record UsuarioDTO(
 		@NotBlank @Email String email,
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) @NotBlank String senha,
 		@NotNull Long enderecoId) {
+	
 }
