@@ -41,9 +41,9 @@ public class GlobalHandlerExceptionConfig {
 	}
 
 	@ExceptionHandler(IdUsuarioNaoEncontradoException.class)
-	public ResponseEntity<Object> manipularExceptionUsuarioId(Exception ex) {
+	public ResponseEntity<Object> manipularExceptionUsuarioId(IdUsuarioNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ERRO_BUSCAR_ID_USUARIO");
-		return pegarRespostaErro(mensagem, HttpStatus.INTERNAL_SERVER_ERROR);
+		return pegarRespostaErro(mensagem, HttpStatus.NOT_FOUND);
 	}
 	
 	private String verificarMensagemDaException(String mensagem, String mensagemPadrao) {

@@ -35,12 +35,12 @@ public class UsuarioService {
 	}
 	
 	public List<UsuarioDTO> buscaTodosUsuarios(){
-		return usuarioRepository.findAll().stream().map(e -> UsuarioConverter.toDto(e)).toList();
+		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
 	
 	public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO usuarioDto) {
 	    Usuario usuarioUpdate = usuarioRepository.buscaUsuarioPorId(id)
-	        .orElseThrow(() -> new IdUsuarioNaoEncontradoException());
+	        .orElseThrow(IdUsuarioNaoEncontradoException::new);
 
 	    UsuarioConverter.updateUsuario(usuarioUpdate, usuarioDto);
 
