@@ -3,6 +3,7 @@ package br.com.trainees.pizzaria.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,11 +17,15 @@ import br.com.trainees.pizzaria.domain.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Query("SELECT u FROM Usuario u "
-			+ "LEFT JOIN u.endereco e "
+			+ "LEFT JOIN FETCH u.endereco e "
 			+ "WHERE u.id = :id")
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
 
 	
+//	@EntityGraph(attributePaths = {"endereco"})
+	List<Usuario> findAll();
+
+
 	@Query("SELECT u FROM Usuario u " +
 		     "LEFT JOIN FETCH u.endereco " +
 		     "WHERE u.cpf = :cpf")

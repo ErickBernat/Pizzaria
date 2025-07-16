@@ -45,14 +45,16 @@ public class UsuarioController {
 		
 		return ResponseEntity.created(locationUri).body(usuarioDto);
 	}
-	
-<<<<<<< HEAD
-	
-=======
+
 	@PatchMapping("/{id}/inativar")
 	public ResponseEntity<?> inativarUsuario(@PathVariable("id") Long usuarioId) {
 		usuarioService.deletarUsuario(usuarioId);
 		return ResponseEntity.noContent().build();
 	}
->>>>>>> origin/feature/46-criar_endpoint_para_inativar_um_usuario
+	
+	@GetMapping("/todosUsuarios")
+    public ResponseEntity<List<UsuarioDTO>> buscarTodosOsUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioService.buscaTodosUsuarios();
+        return ResponseEntity.ok(usuarios);
+    }
 }
