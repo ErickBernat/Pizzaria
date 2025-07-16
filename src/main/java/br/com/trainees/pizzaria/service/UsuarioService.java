@@ -56,7 +56,14 @@ public class UsuarioService {
 	    }
 	    return UsuarioConverter.toDto(usuario.get());
 	}
-  
+	
+	public List<UsuarioDTO> buscaUsuarioPorBairro(String bairro) {
+		List<Usuario> usuario = usuarioRepository.buscaUsuarioPorBairro(bairro);
+		return usuario.stream()
+                .map(UsuarioConverter::toDto)
+                .toList();
+	}
+	
 	public void deletarUsuario(Long id) {
 		boolean usuarioExiste = usuarioRepository.existsById(id);
 		if(!usuarioExiste) throw new IdUsuarioNaoEncontradoException();

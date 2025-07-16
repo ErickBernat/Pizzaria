@@ -29,13 +29,13 @@ public class GlobalHandlerExceptionConfig {
 	}
 
 	@ExceptionHandler(EnderecoNaoEncontradoException.class)
-	public ResponseEntity<Object> manipular_EnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
+	public ResponseEntity<Object> manipularEnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ENDERECO_NAO_ENCONTRADO");
 		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(UsuarioJaExistenteException.class)
-	public ResponseEntity<Object> manipular_UsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
+	public ResponseEntity<Object> manipularUsuarioNaoEncontradoException(UsuarioJaExistenteException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "USUARIO_JA_EXISTENTE");
 		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
 	}
