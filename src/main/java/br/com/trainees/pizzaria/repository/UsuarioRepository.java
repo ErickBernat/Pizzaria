@@ -10,15 +10,15 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
-	@Query("SELECT u FROM Usuario u"
-			+ "LEFT JOIN u.endereco "
-			+ "WHERE u.id = :id")
+	@Query("SELECT u FROM Usuario u LEFT JOIN u.endereco e WHERE u.id = :id")
 	Optional<Usuario> buscaUsuarioPorId(@Param("id") Long id);
+
 	
 	@Query("SELECT u FROM Usuario u " +
 		     "LEFT JOIN FETCH u.endereco " +
@@ -45,7 +45,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
     @Modifying
     @Transactional
-    @Query("UPDATE Usuario u SET u.status = 0 " //
+    @Query("UPDATE Usuario u SET u.status = false " 
             + "WHERE u.id = :id")
     void deixaUsuarioInativo(@Param("id") Long id);
 
