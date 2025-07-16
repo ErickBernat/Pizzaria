@@ -23,6 +23,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private String senha;
+	private boolean status;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_id_endereco")
@@ -32,7 +33,7 @@ public class Usuario {
 		
 	}
 
-	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco) {
+	public Usuario(String cpf, String nome, String telefone, String email, String senha, Endereco endereco, Boolean status) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
@@ -40,6 +41,7 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.endereco = endereco;
+		this.status = status;
 	}
 
 	public Long getId() {
@@ -88,6 +90,14 @@ public class Usuario {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void getStatus(Boolean status) {
+		this.status = status;
 	}
 	
 	
