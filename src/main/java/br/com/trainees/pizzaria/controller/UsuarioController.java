@@ -10,16 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
-
-import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
-import br.com.trainees.pizzaria.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -31,9 +26,7 @@ public class UsuarioController {
 	@GetMapping("/{cpf}")
 	public ResponseEntity<UsuarioDTO> obterUsuarioPorCpf(@PathVariable String cpf) {
 		return ResponseEntity.ok(usuarioService.buscarUsuarioPorCpf(cpf));
-
-	 
-  
+	}
 	 
 	 @GetMapping("/{id}")
 	 public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
