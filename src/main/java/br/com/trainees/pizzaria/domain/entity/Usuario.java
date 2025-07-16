@@ -23,7 +23,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private String senha;
-	private boolean status;
+	private boolean ativo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_id_endereco")
@@ -41,7 +41,7 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.endereco = endereco;
-		this.status = status;
+		this.ativo = status;
 	}
 
 	public Long getId() {
@@ -93,11 +93,11 @@ public class Usuario {
 	}
 	
 	public Boolean getStatus() {
-		return status;
+		return ativo;
 	}
 
 	public void getStatus(Boolean status) {
-		this.status = status;
+		this.ativo = status;
 	}
 	
 	
