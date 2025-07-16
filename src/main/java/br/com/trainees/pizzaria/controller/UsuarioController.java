@@ -30,4 +30,6 @@ public class UsuarioController {
 		
 		return ResponseEntity.created(locationUri).body(usuarioDto);
 	}
+	
+	
 }
