@@ -6,17 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.trainees.pizzaria.domain.converter.UsuarioConverter;
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
+import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Endereco;
 import br.com.trainees.pizzaria.domain.entity.Usuario;
+import br.com.trainees.pizzaria.domain.exception.CpfUsuarioNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
-import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
-import br.com.trainees.pizzaria.repository.EnderecoRepository;
-
-import br.com.trainees.pizzaria.domain.converter.UsuarioConverter;
-import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
+import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
+import br.com.trainees.pizzaria.repository.EnderecoRepository;
 import br.com.trainees.pizzaria.repository.UsuarioRepository;
 
 @Service
@@ -47,7 +47,7 @@ public class UsuarioService {
 	
 	public UsuarioDTO buscarUsuarioPorCpf(String cpf) {
 		Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorCpf(cpf);
-		if(usuario.isEmpty()) throw new IdUsuarioNaoEncontradoException();
+		if(usuario.isEmpty()) throw new CpfUsuarioNaoEncontradoException();
 		
 		return UsuarioConverter.toDto(usuario.get());
 	}
