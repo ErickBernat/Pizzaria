@@ -1,6 +1,7 @@
 package br.com.trainees.pizzaria.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,11 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public List<UsuarioDTO> buscaTodosUsuarios(){
+	public UsuarioDTO buscaTodosUsuarios(Long id){
+		return  converteUsuarioDTO(usuarioRepository.buscaUsuarioPorId(id).get());
+	}
+	
+	public List<UsuarioDTO> buscaUsuarioId(){
 		return usuarioRepository.findAll().stream().map(this::converteUsuarioDTO).toList();
 	}
 	
