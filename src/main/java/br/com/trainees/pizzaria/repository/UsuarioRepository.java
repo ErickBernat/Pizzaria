@@ -26,6 +26,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 		     "WHERE u.cpf = :cpf")
 	Optional<Usuario> buscaUsuarioPorCpf(@Param("cpf") String cpf);
 	
+	@Query("SELECT u FROM Usuario u LEFT JOIN FETCH u.endereco WHERE u.email = :email")
+	Optional<Usuario> buscaUsuarioPorEmail(@Param("email") String email);
+	
     @Modifying
     @Transactional
 	@Query("UPDATE Usuario u SET u.email= :novoEmail "

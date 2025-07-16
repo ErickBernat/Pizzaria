@@ -10,6 +10,7 @@ import br.com.trainees.pizzaria.domain.converter.UsuarioConverter;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Usuario;
 import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
+import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
 import br.com.trainees.pizzaria.repository.UsuarioRepository;
 
 @Service
@@ -28,8 +29,15 @@ public class UsuarioService {
 	}
 	
 	public List<UsuarioDTO> buscaTodosUsuarios(){
-		return usuarioRepository.findAll().stream().map(e -> UsuarioConverter.toDto(e)).toList();
+		return usuarioRepository.findAll().stream().map(UsuarioConverter::toDto).toList();
 	}
 	
+	public UsuarioDTO buscaUsuarioPorEmail(String email) {
+	    Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorEmail(email);
+	    if (usuario.isEmpty()) {
+	        throw new UsuarioNaoEncontradoException();
+	    }
+	    return UsuarioConverter.toDto(usuario.get());
+	}
 
 }
