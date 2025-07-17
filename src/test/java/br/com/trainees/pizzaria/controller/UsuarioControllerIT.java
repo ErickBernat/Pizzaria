@@ -100,8 +100,7 @@ public class UsuarioControllerIT {
 				List<UsuarioDTO> listaUsuarioEsperadoDto = Arrays.asList(UsuarioConverter.toDto(entity));
 				
 				MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(urlPadrao + "/todosUsuarios")).andReturn().getResponse();
-				Type listUsuarioType = new TypeToken<List<UsuarioDTO>>() {}.getType();
-				List<UsuarioDTO> listaUsuariosRespostaDto = new Gson().fromJson(response.getContentAsString(), listUsuarioType);
+				List<UsuarioDTO> listaUsuariosRespostaDto = new Gson().fromJson(response.getContentAsString(),new TypeToken<List<UsuarioDTO>>(){}.getType());
 				
 				Assertions.assertEquals(statusCode, response.getStatus());
 				Assertions.assertEquals(listaUsuarioEsperadoDto, listaUsuariosRespostaDto);
