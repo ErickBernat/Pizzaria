@@ -63,6 +63,21 @@ public class UsuarioControllerIT {
 				Usuario usuario = entity;
 				UsuarioDTO usuarioEsperadoDto = UsuarioConverter.toDto(entity);
 				
+				MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(urlPadrao + "/cpf/" + entity.getCpf())).andReturn().getResponse();
+			
+				UsuarioDTO usuarioRespostaDto = new Gson().fromJson(response.getContentAsString(), UsuarioDTO.class);
+				
+				Assertions.assertEquals(statusCode, response.getStatus());
+				Assertions.assertEquals(usuarioEsperadoDto, usuarioRespostaDto);
+			}
+			
+			@Test
+			@DisplayName("Deve retornar um usuario pelo id")
+			void testObterUsuarioPorId() throws Exception {
+				Integer statusCode = 200;
+				Usuario usuario = entity;
+				UsuarioDTO usuarioEsperadoDto = UsuarioConverter.toDto(entity);
+				
 				MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(urlPadrao + "/id/" + entity.getId())).andReturn().getResponse();
 			
 				UsuarioDTO usuarioRespostaDto = new Gson().fromJson(response.getContentAsString(), UsuarioDTO.class);
