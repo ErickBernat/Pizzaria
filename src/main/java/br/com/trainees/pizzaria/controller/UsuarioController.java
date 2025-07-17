@@ -62,7 +62,8 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioDTO> atualizaUsuario(@PathVariable Long id , @RequestBody UsuarioAtualizaDTO usuarioAtualizaDTO){
 		UsuarioDTO usuarioAtualizado = usuarioService.atualizarUsuario(id, usuarioAtualizaDTO);
 		return ResponseEntity.ok(usuarioAtualizado);
-
+	}
+	
 	@PatchMapping("/{id}/inativar")
 	public ResponseEntity<?> inativarUsuario(@PathVariable("id") Long usuarioId) {
 		usuarioService.deletarUsuario(usuarioId);
