@@ -1,5 +1,10 @@
 package br.com.trainees.pizzaria.controller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import br.com.trainees.pizzaria.domain.converter.UsuarioConverter;
 import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
@@ -84,6 +90,21 @@ public class UsuarioControllerIT {
 				
 				Assertions.assertEquals(statusCode, response.getStatus());
 				Assertions.assertEquals(usuarioEsperadoDto, usuarioRespostaDto);
+			}
+			
+			@Test
+			@DisplayName("Deve retornar todos os usuarios")
+			void testObterTodosUsuarios() throws Exception {
+				Integer statusCode = 200;
+				Usuario usuario = entity;
+				List<UsuarioDTO> listaUsuarioEsperadoDto = Arrays.asList(UsuarioConverter.toDto(entity));
+				
+				MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(urlPadrao + "/todosUsuarios")).andReturn().getResponse();
+				Type listUsuarioType = new TypeToken<List<UsuarioDTO>>() {}.getType();
+				List<UsuarioDTO> listaUsuariosRespostaDto = new Gson().fromJson(response.getContentAsString(), listUsuarioType);
+				
+				Assertions.assertEquals(statusCode, response.getStatus());
+				Assertions.assertEquals(listaUsuarioEsperadoDto, listaUsuariosRespostaDto);
 			}
 		}
 	}
