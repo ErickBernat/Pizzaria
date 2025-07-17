@@ -47,8 +47,9 @@ public class UsuarioService {
 	
 	public UsuarioDTO buscarUsuarioPorCpf(String cpf) {
 		Optional<Usuario> usuario = usuarioRepository.buscaUsuarioPorCpf(cpf);
-		if(usuario.isEmpty()) throw new CpfUsuarioNaoEncontradoException();
-		
+		if(usuario.isEmpty()) {
+			throw new CpfUsuarioNaoEncontradoException();
+		}
 		return UsuarioConverter.toDto(usuario.get());
 	}
 	
