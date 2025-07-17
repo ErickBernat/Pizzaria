@@ -12,20 +12,15 @@ import br.com.trainees.pizzaria.domain.exception.UsuarioDuplicadoException;
 import br.com.trainees.pizzaria.repository.UsuarioRepository;
 import br.com.trainees.pizzaria.domain.dto.UsuarioAtualizaDTO;
 import br.com.trainees.pizzaria.domain.dto.UsuarioCadastroDTO;
-import br.com.trainees.pizzaria.domain.dto.UsuarioDTO;
 import br.com.trainees.pizzaria.domain.entity.Endereco;
 
-import br.com.trainees.pizzaria.domain.entity.Usuario;
 import br.com.trainees.pizzaria.domain.exception.CpfUsuarioNaoEncontradoException;
 
-import br.com.trainees.pizzaria.domain.exception.IdUsuarioNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
-import br.com.trainees.pizzaria.repository.UsuarioRepository;
 
 import br.com.trainees.pizzaria.domain.exception.EnderecoNaoEncontradoException;
 import br.com.trainees.pizzaria.domain.exception.UsuarioJaExistenteException;
 import br.com.trainees.pizzaria.repository.EnderecoRepository;
-import br.com.trainees.pizzaria.domain.exception.UsuarioNaoEncontradoException;
 
 
 @Service

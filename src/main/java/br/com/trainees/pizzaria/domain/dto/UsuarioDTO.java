@@ -2,7 +2,6 @@ package br.com.trainees.pizzaria.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import br.com.trainees.pizzaria.domain.entity.Endereco;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
