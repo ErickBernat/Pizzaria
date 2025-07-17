@@ -100,6 +100,7 @@ public class UsuarioService {
 	
 	public List<UsuarioDTO> buscaUsuarioPorBairro(String bairro) {
 		List<Usuario> usuario = usuarioRepository.buscaUsuarioPorBairro(bairro);
+		if (usuario.isEmpty()) throw new EnderecoNaoEncontradoException();
 		return usuario.stream()
                 .map(UsuarioConverter::toDto)
                 .toList();

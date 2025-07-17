@@ -32,7 +32,7 @@ public class GlobalHandlerExceptionConfig {
 	@ExceptionHandler(EnderecoNaoEncontradoException.class)
 	public ResponseEntity<Object> manipularEnderecoNaoEncontradoException(EnderecoNaoEncontradoException ex) {
 		String mensagem = verificarMensagemDaException(ex.getMessage(), "ENDERECO_NAO_ENCONTRADO");
-		return pegarRespostaErro(mensagem, HttpStatus.BAD_REQUEST);
+		return pegarRespostaErro(mensagem, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(UsuarioJaExistenteException.class)
